@@ -41,6 +41,18 @@ console.log('New User Connected');
 //   createdAt:143
 // });
 
+socket.emit('newMEssageEvent',{
+  from:'Admin',
+  text:'Welcome to chat app',
+  createdAt: new Date().getTime()
+});
+
+socket.broadcast.emit('newMEssageEvent',{
+  from:'Admin',
+  text:'New user Joined',
+  createdAt:new Date().getTime()
+});
+
 socket.on('createMessageEvent',(msg)=>{
   console.log('Msg :',msg);
   io.emit('newMEssageEvent',{
@@ -49,6 +61,12 @@ socket.on('createMessageEvent',(msg)=>{
     createdAt:new Date().getTime()
   });
 });
+
+
+
+
+
+
 
 socket.on('disconnect',()=>{
   console.log('User was disconnected');
