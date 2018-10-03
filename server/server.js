@@ -25,24 +25,29 @@ io.on('connection',(socket)=>{
 
 console.log('New User Connected');
 
-socket.emit('newEmail',{
-  from:'suman@love.com',
-  text:'love you dear',
-  createdAt:'feelinglove'
-});
+// socket.emit('newEmail',{
+//   from:'suman@love.com',
+//   text:'love you dear',
+//   createdAt:'feelinglove'
+// });
+//
+// socket.on('createEmail',(newEmail)=>{
+//   console.log('createdAt:',newEmail);
+// });
 
-socket.on('createEmail',(newEmail)=>{
-  console.log('createdAt:',newEmail);
-});
-
-socket.emit('newMEssageEvent',{
-  from:'sumankumar',
-  text:'Love you dear',
-  createdAt:143
-});
+// socket.emit('newMEssageEvent',{
+//   from:'sumankumar',
+//   text:'Love you dear',
+//   createdAt:143
+// });
 
 socket.on('createMessageEvent',(msg)=>{
   console.log('Msg :',msg);
+  io.emit('newMEssageEvent',{
+    from:msg.from,
+    text:msg.text,
+    createdAt:new Date().getTime()
+  });
 });
 
 socket.on('disconnect',()=>{
