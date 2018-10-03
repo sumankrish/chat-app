@@ -25,6 +25,26 @@ io.on('connection',(socket)=>{
 
 console.log('New User Connected');
 
+socket.emit('newEmail',{
+  from:'suman@love.com',
+  text:'love you dear',
+  createdAt:'feelinglove'
+});
+
+socket.on('createEmail',(newEmail)=>{
+  console.log('createdAt:',newEmail);
+});
+
+socket.emit('newMEssageEvent',{
+  from:'sumankumar',
+  text:'Love you dear',
+  createdAt:143
+});
+
+socket.on('createMessageEvent',(msg)=>{
+  console.log('Msg :',msg);
+});
+
 socket.on('disconnect',()=>{
   console.log('User was disconnected');
 });
