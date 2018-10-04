@@ -25,4 +25,24 @@ socket.on('disconnect',function(){
 
 socket.on('newMEssageEvent',function(msg){
   console.log('msg :',msg);
+var li=jQuery('<li></li>');
+li.text(`${msg.from}: ${msg.text}`);
+
+jQuery('#messages').append(li);
+
 })
+
+
+jQuery('#message-form').on('submit',function(e){
+
+e.preventDefault();
+
+socket.emit('createMessageEvent',{
+
+from:'Suman',
+text:jQuery('[name=message]').val()
+},function (data){
+console.log(data)
+});
+
+});

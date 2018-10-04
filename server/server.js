@@ -48,9 +48,10 @@ socket.emit('newMEssageEvent',generatedMessage('Admin','Welcome to Chat App'));
 
 socket.broadcast.emit('newMEssageEvent',generatedMessage('Admin','New user logged in'));
 
-socket.on('createMessageEvent',(msg)=>{
+socket.on('createMessageEvent',(msg,callback)=>{
   console.log('Msg :',msg);
   io.emit('newMEssageEvent',generatedMessage(msg.from,msg.text));
+  callback('Ack from server');
 });
 
 
