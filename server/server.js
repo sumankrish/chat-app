@@ -19,6 +19,8 @@ var server=http.createServer(app);
 
 var io = socketIO(server);
 
+var {generatedMessage}=require('./utils/message.js');
+
 app.use(express.static(publicPath));
 
 io.on('connection',(socket)=>{
@@ -41,29 +43,15 @@ console.log('New User Connected');
 //   createdAt:143
 // });
 
-socket.emit('newMEssageEvent',{
-  from:'Admin',
-  text:'Welcome to chat app',
-  createdAt: new Date().getTime()
-});
+socket.emit('newMEssageEvent',generatedMessage('Admin','Welcome to Chat App'));
 
-socket.broadcast.emit('newMEssageEvent',{
-  from:'Admin',
-  text:'New user Joined',
-  createdAt:new Date().getTime()
-});
+
+socket.broadcast.emit('newMEssageEvent',generatedMessage('Admin','New user logged in'));
 
 socket.on('createMessageEvent',(msg)=>{
   console.log('Msg :',msg);
-  io.emit('newMEssageEvent',{
-    from:msg.from,
-    text:msg.text,
-    createdAt:new Date().getTime()
-  });
+  io.emit('newMEssageEvent',generatedMessage(msg.from,msg.text));
 });
-
-
-
 
 
 
