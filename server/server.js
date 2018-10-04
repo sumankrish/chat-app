@@ -19,7 +19,7 @@ var server=http.createServer(app);
 
 var io = socketIO(server);
 
-var {generatedMessage}=require('./utils/message.js');
+var {generatedMessage,generatedLocationMessage}=require('./utils/message.js');
 
 app.use(express.static(publicPath));
 
@@ -55,6 +55,10 @@ socket.on('createMessageEvent',(msg,callback)=>{
 });
 
 
+socket.on('createLocationMessage',(coords)=>{
+io.emit('newLocationMessage',generatedLocationMessage('Admin',coords.latitude,coords.longitude));
+
+});
 
 
 socket.on('disconnect',()=>{
