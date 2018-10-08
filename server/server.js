@@ -51,7 +51,7 @@ socket.broadcast.emit('newMEssageEvent',generatedMessage('Admin','New user logge
 socket.on('createMessageEvent',(msg,callback)=>{
   console.log('Msg :',msg);
   io.emit('newMEssageEvent',generatedMessage(msg.from,msg.text));
-  callback('Ack from server');
+  callback();
 });
 
 
